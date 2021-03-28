@@ -12,10 +12,10 @@ class User(AbstractUser):
         (GENDER_OTHER, "Other")
         )
     
-    LANGUAGE_ENGLISH = "english"
-    LANGUAGE_KOREAN = "korean"
+    LANGUAGE_ENGLISH = "en"
+    LANGUAGE_KOREAN = "ko"
     LANGUAGE_CHOICES = (
-        (LANGUAGE_ENGLISH, "en"), (LANGUAGE_KOREAN, "ko")
+        (LANGUAGE_ENGLISH, "english"), (LANGUAGE_KOREAN, "korean")
         )
 
     CURRENCY_USD = "usd"
@@ -23,15 +23,15 @@ class User(AbstractUser):
     CURRENCY_CHOICES = (
         (CURRENCY_USD, "USD"), (CURRENCY_KRW, "KRW"))
 
-    avatar = models.ImageField(null=True, blank=True)
+    avatar = models.ImageField(blank=True)
     gender = models.CharField(
-        choices=GENDER_CHOICES, max_length=10, null=True, blank=True) # 최대 글자 수 지정
-    bio = models.TextField(default="", blank=True)
+        choices=GENDER_CHOICES, max_length=10, blank=True) # 최대 글자 수 지정
+    bio = models.TextField(blank=True)
     
-    birthdate = models.DateField(null=True)
-    langaue = models.CharField(
-        choices=LANGUAGE_CHOICES, max_length=2, null=True, blank=True)
+    birthdate = models.DateField(blank=True, null=True)
+    language = models.CharField(
+        choices=LANGUAGE_CHOICES, max_length=2, blank=True)
     currency = models.CharField(
-        choices=CURRENCY_CHOICES, max_length=3, null=True, blank=True)
+        choices=CURRENCY_CHOICES, max_length=3, blank=True)
     
     superhost = models.BooleanField(default=False)
