@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'fwrghw+s^fn7o0_06r0rf3z7-*2hth3p6mw%9a#+!3-2vk7(o$'
+SECRET_KEY = '&47*^7&zjbe^vky(%&$n^v)3l%-!u4(rb510v-*be48xl8%n9s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-DJANGO_APPS = [
+INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,17 +38,6 @@ DJANGO_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
-
-THIRD_PARTY_APPS = [ "django_countries"
-    
-]
-
-
-PROJECT_APPS = [
-    "users.apps.UsersConfig", "rooms.apps.RoomsConfig", "core.apps.CoreConfig",
-]
-
-INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -114,7 +103,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'KO'
+LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = "Asia/Seoul"
 
@@ -128,5 +117,4 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = "/static/"
-AUTH_USER_MODEL = 'users.User'
+STATIC_URL = '/static/'
