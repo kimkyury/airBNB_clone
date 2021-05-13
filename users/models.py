@@ -9,15 +9,34 @@ class User(AbstractUser):
     GENDER_MALE = "male"
     GENDER_FEMALE = "female"
     GENDER_OTHER = "other"
-
     GENDER_CHOICS = (
         (GENDER_MALE, "Male"),
         (GENDER_FEMALE, "Female"),
         (GENDER_OTHER, "Other"),
     )
+
+    LANGUAGE_ENGLISH ="en"
+    LANGUAGE_KOREAN ="kr"
+    LANGUAGE_CHOICES = (
+        (LANGUAGE_ENGLISH, "english"),   # LANGUAGE_ENGLISH가 데이터베이스로감
+        (LANGUAGE_KOREAN, "korean"),        # "english", "korea"는 Form에서 보여질 값
+    )
+
     
+    CURRENCY_USD = "usd"
+    CURRENCY_KRW = "krw"
+    CURRENCY_CHOICES = (
+        (CURRENCY_USD, "USD"),
+        (CURRENCY_KRW, "KRW"),
+    )
+
     avatar = models.ImageField(null=True, blank=True)
     gender = models.CharField(
         choices= GENDER_CHOICS, max_length=10, null=True, blank=True
     )
+
     bio = models.TextField(default="", blank=True)
+    bithdate = models.DateField(null=True)
+    language = models.CharField(choices = LANGUAGE_CHOICES, max_length=2, null=True, blank=True)
+    currency = models.CharField(choices = CURRENCY_CHOICES, max_length=2, null=True, blank =True)
+    superhost = models.BooleanField(default =False)
