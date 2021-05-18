@@ -3,7 +3,7 @@ from . import models
 # Register your models here.
 
 
-@admin.register(models.room)
+@admin.register(models.Room)
 class RommAdmin(admin.ModelAdmin):
 
     pass
