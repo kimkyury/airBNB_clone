@@ -29,8 +29,6 @@ class RoomAdmin(admin.ModelAdmin):
         ("Last Details", {"fields": ("host", )}),
     )
 
-
-
     list_display = ("name",
         "country",
         "city",
@@ -44,10 +42,7 @@ class RoomAdmin(admin.ModelAdmin):
         "instant_book",
         "count_amenities",
     )
-
     ordering = ("name", "price", "bedrooms")
-
-
 
     list_filter = (
         "instant_book", 
@@ -63,15 +58,11 @@ class RoomAdmin(admin.ModelAdmin):
     search_fields =("city", "^host__username")
 
     filter_horizontal =("amenities", "facilities", "house_rules",)
-
     def count_amenities(self, obj):
-        print(obj.amenities.all())
-        return "Potato"
-
+        return obj.amenities.count()
     count_amenities.short_description = "hello sexy!"
 
 @admin.register(models.Photo)
 class PhotoAdmin(admin.ModelAdmin):
-    """"""
-
+    """ """
     pass
