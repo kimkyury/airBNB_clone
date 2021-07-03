@@ -1,5 +1,6 @@
 from django.db import models
 from core import models as core_models
+from django.utils import timezone
 
 class Reservation (core_models.TimeStampedModel):
     
@@ -26,3 +27,16 @@ class Reservation (core_models.TimeStampedModel):
 
     def __str__(self):
         return f"{self.room} - {self.check_in}"
+        
+    def in_progress(self): # check in/out 날짜가 현재보다 작고 큰지 구분(진행중인지 확인)
+        now = timezone.now().date()
+        return now > self.check_in and now < self.check_out
+    
+    in_progress.boolean = True  #bool값을 요약이모티콘(X표라든지) 으로 표시
+
+    def is_finished(self): #완료되었는지 체크해보자
+        now = timezone.now().date()
+        return now > self.check_out
+        
+    is_finished.boolean = True
+

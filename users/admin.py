@@ -23,6 +23,8 @@ class CustomUserAdmin(admin.ModelAdmin):
         ),
     )
 
+    list_filter = UserAdmin.list_filter + ("superhost",)
+
     list_display = (
         "username",
         "first_name",
@@ -34,5 +36,4 @@ class CustomUserAdmin(admin.ModelAdmin):
         "superhost",
         "is_staff",
         "is_superuser",
-        
     )
