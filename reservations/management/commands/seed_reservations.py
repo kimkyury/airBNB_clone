@@ -1,13 +1,14 @@
 import random
+from datetime import datetime, timedelta
 from django.core.management.base import BaseCommand
 from django.contrib.admin.utils import flatten
 from django_seed import Seed 
-from lists import models as list_models
+from reservations import models as reservation_models
 from users import models as user_models
 from rooms import models as room_models
 
 
-NAME = "lists"
+NAME = "reservations"
 
 
 class Command(BaseCommand):
@@ -16,7 +17,7 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            "--number", default=2, type = int, help="How many {NAME} do you wnat to create "
+            "--number", default=2, type = int, help="How many {NAME} you wnat to create "
         )
     
     def handle(self, *args, **options):
@@ -24,16 +25,18 @@ class Command(BaseCommand):
         seeder = Seed.seeder()
         users = user_models.User.objects.all()
         rooms = room_models.Room.objects.all()
-
         seeder.add_entity(
-            list_models.List, number, {"user": lambda x :random.choice(users)}
+            reservation_models.Reservation, 
+            number, 
+            {
+                "status": lambda x:random.choice(["pending", "confirmed", "canceled"]),
+                "guest": lambda x :random.choice(users),
+                "room": lambda x: random.choice(rooms),
+                "check_in": lambda x: datetime.now(),
+                "check_out": lambda x:datetime.now() + timedelta(days=random.randint(3, 25))
+            },
         )
 
-        created_photos = seeder.execute()
-        cleaned= flatten(list(created_photos.values()))
-        for pk in cleaned:
-            list_model = list_models.List.objects.get(pk=pk)
-            to_add = rooms[random.randint(0, 5) : random.randint(6, 30)]
-            list_model.rooms.add(*to_add)
+        seeder.execute()
 
         self.stdout.write(self.style.SUCCESS(f"{number} {NAME} created!"))

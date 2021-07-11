@@ -30,7 +30,7 @@ class Reservation (core_models.TimeStampedModel):
         
     def in_progress(self): # check in/out 날짜가 현재보다 작고 큰지 구분(진행중인지 확인)
         now = timezone.now().date()
-        return now > self.check_in and now < self.check_out
+        return now >= self.check_in and now <= self.check_out
     
     in_progress.boolean = True  #bool값을 요약이모티콘(X표라든지) 으로 표시
 

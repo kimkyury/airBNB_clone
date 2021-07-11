@@ -327,6 +327,8 @@ Thumbs.db #thumbnail cache on Windows
 
 # End of https://www.toptal.com/developers/gitignore/api/django
 
+
+
 uploads/
 
 니콜라스 강의정리/
