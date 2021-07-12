@@ -1,5 +1,16 @@
 {% extends "base.html" %} <!-- base.html을 extend 시킴 -->
-{% for room in potato %}
-    <!-- 룸의 이름과 룸의 가격을 띄움-->
-    <h1> {{room.name}} / ${{room.price}}</h1>
-{% endfor %}
+
+{% block page_name%}
+    Home
+{% endblock page_name %}
+
+
+
+{% block content %}
+    {% for room in potato %}
+        <h1> {{room.name}} / ${{room.price}}</h1>     <!-- 룸의 이름과 룸의 가격을 띄움-->
+    {% endfor %}z
+
+
+{% endblock content %}
+
