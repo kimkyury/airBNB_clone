@@ -7,18 +7,23 @@
 
 
 {% block content %}
-    {% for room in potato %}
+    {% for room in rooms.object_list %}
         <h1> {{room.name}} / ${{room.price}}</h1>     <!-- 룸의 이름과 룸의 가격을 띄움-->
     {% endfor %}
 
 
 
+    <h5> 
+    {% if rooms.has_previous %}
+        <a href="?page={{page.number|add:-1}} "> Previous </a>
+    {% endif %}
+    Page {{rooms.number}} of {{rooms.paginator.num_pages}} <!-- 페이지 네비게이션-->
 
-    <h5> Page {{page}} of {{page_count}} </h5> <!-- 페이지 네비게이션-->
+    {% if rooms.has_next  %}
+        <a href ="?page = {{page.number|add:+1}}"> Next </a>
+    {% endif %}
 
-    {% for page in page_range %}
-        <a href="?page={{page}}" > {{pag}} </a>
-    {% endfor %}
+    </h5>
 
 
 {% endblock content %}
