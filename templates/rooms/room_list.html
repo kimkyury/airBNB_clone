@@ -9,6 +9,7 @@
 
 {% block content %}
 
+    {{now}}
     {% for room in object_list  %}
         <h1>{{room.name}} / ${{room.price}}</h1> <!-- 룸의 이름과 룸의 가격을 띄움-->
     {% endfor %}
