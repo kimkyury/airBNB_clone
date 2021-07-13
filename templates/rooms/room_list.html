@@ -11,7 +11,11 @@
 
     {{now}}
     {% for room in object_list  %}
-        <h1>{{room.name}} / ${{room.price}}</h1> <!-- 룸의 이름과 룸의 가격을 띄움-->
+        <h3>
+            <a href="{% url "rooms:detail" room.pk %}">
+                {{room.name}} / ${{room.price}} <!-- 룸의 이름과 룸의 가격을 띄움-->
+            </a>
+        </h3>
     {% endfor %}
 
     <h5>
