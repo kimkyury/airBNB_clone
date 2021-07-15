@@ -91,6 +91,11 @@ class Room(core_models.TimeStampedModel):
         self.city = str.capitalize(self.city)
         super().save(*args, **kwargs)
 
+    
+    def get_absoulte_url(self):
+        return reverse("rooms:detail")
+
+
 
     def total_rating(self): #총 평균을 표시하자
         all_reviews = self.reviews.all()
