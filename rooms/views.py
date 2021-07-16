@@ -15,4 +15,6 @@ class HomeView(ListView): # Lendering 할 필요가 없어졌음
 
 class RoomDetail(DetailView):
 
+    """ RoomDetail Definition """
+    
     model = models.Room
