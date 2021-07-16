@@ -1,6 +1,4 @@
-
-{% extends "base.html" %} <!-- base.html을 extend 시킴 -->
-
+{% extends "base.html" %}
 
 
 {% block page_name %}
@@ -10,10 +8,11 @@
 {% block content %}
 
     {{now}}
-    {% for room in object_list  %}
+
+    {% for room in rooms  %}
         <h3>
             <a href="{% url "rooms:detail" room.pk %}">
-                {{room.name}} / ${{room.price}} <!-- 룸의 이름과 룸의 가격을 띄움-->
+                {{room.name}} / ${{room.price}}
             </a>
         </h3>
     {% endfor %}
@@ -23,7 +22,7 @@
         <a href="?page={{page_obj.previous_page_number}}">Previous</a>
     {% endif %}
 
-    Page {{page_obj.number}} of {{page_obj.paginator.num_pages}} <!-- 페이지 네비게이션-->
+    Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}
     
     {% if page_obj.has_next  %}
         <a href="?page={{page_obj.next_page_number}}">Next</a>
