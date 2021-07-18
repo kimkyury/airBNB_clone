@@ -10,3 +10,5 @@ class LoginView(View) :
 
     def post(self, request):
         form = forms.LoginForm(request.POST)
+        return render(request,"users/login.html", {"form": form})
+        
