@@ -22,11 +22,12 @@ class LoginForm(forms.Form):
                 "User does not exist"))
 
 
-class SignUpForm(forms.Form):
+class SignUpForm(forms.ModelForm):
 
-    first_name = forms.CharField(max_length=80)
-    last_name = forms.CharField(max_length=80)
-    email = forms.EmailField()
+    class Meta:
+        model = models.User
+        fields = ("first_name", "last_name", "email")
+
     password = forms.CharField(widget=forms.PasswordInput)
     password1 = forms.CharField(
         widget=forms.PasswordInput, label="confirm Password")
@@ -48,13 +49,10 @@ class SignUpForm(forms.Form):
         else:
             return password
 
-    def save(self):
-        first_name = self.cleaned_data.get("first_name")
-        last_name = self.cleaned_data.get("last_name")
-        email = self.cleaned_data.get("email")
+    def save(self, *args, **kwargs):
+        user = super().save(commit=False)
+        username = self.cleaned_data.get("username")
         password = self.cleaned_data.get("password")
-
-        user = models.User.objects.create_user(email, email, password)
-        user.first_name = first_name
-        user.last_name = last_name
-        user.save()
+        user.username = username
+        user.set_password(password)
+        user.save()   # 얘는 commit = true 임

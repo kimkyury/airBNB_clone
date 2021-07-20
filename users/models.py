@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 # Create your models here.
 
+
 class User(AbstractUser):
 
     """Custom User Model """
@@ -15,14 +16,13 @@ class User(AbstractUser):
         (GENDER_OTHER, "Other"),
     )
 
-    LANGUAGE_ENGLISH ="en"
-    LANGUAGE_KOREAN ="kr"
+    LANGUAGE_ENGLISH = "en"
+    LANGUAGE_KOREAN = "kr"
     LANGUAGE_CHOICES = (
         (LANGUAGE_ENGLISH, "english"),   # LANGUAGE_ENGLISH가 데이터베이스로감
         (LANGUAGE_KOREAN, "korean"),        # "english", "korea"는 Form에서 보여질 값
     )
 
-    
     CURRENCY_USD = "usd"
     CURRENCY_KRW = "krw"
     CURRENCY_CHOICES = (
@@ -31,9 +31,12 @@ class User(AbstractUser):
     )
 
     avatar = models.ImageField(upload_to="avatars", blank=True)
-    gender = models.CharField(choices=GENDER_CHOICES, max_length=10, blank=True)
+    gender = models.CharField(choices=GENDER_CHOICES,
+                              max_length=10, blank=True)
     bio = models.TextField(blank=True)
     birthdate = models.DateField(blank=True, null=True)
-    language = models.CharField(choices=LANGUAGE_CHOICES, max_length=2, blank=True)
-    currency = models.CharField(choices=CURRENCY_CHOICES, max_length=3, blank=True)
+    language = models.CharField(
+        choices=LANGUAGE_CHOICES, max_length=2, blank=True, default=LANGUAGE_KOREAN)
+    currency = models.CharField(
+        choices=CURRENCY_CHOICES, max_length=3, blank=True, default=CURRENCY_KRW)
     superhost = models.BooleanField(default=False)
