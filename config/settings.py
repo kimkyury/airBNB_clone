@@ -135,3 +135,5 @@ EMAIL_HOST = "smtp.mailgun.org"
 EMAIL_PORT = "587"
 EMAIL_HOST_USER = os.environ.get("MAILGUN_USERNAME")
 EMAIL_HOST_PASSWORD = os.environ.get("MAILGUN_PASSWORD")
+# mailgun 주소로 임의작성
+EMAIL_FROM = "kyukyu@sandbox627d5c4089b04cb2a2fffc8de51332bc.mailgun.org"

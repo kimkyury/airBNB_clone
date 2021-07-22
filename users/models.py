@@ -1,5 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+import uuid
+from django.core.mail import send_mail
+from django.conf import settings
 # Create your models here.
 
 
@@ -44,4 +47,13 @@ class User(AbstractUser):
     email_secret = models.CharField(max_length=120, default="", )
 
     def verify_email(self):
-        pass
+        if self.email_verified is False:
+            secret = uuid.uuid4().hex[:20]
+            self.email_secret = secret
+            send_mail("Verify Airbnb Account", "Verify account",
+                      f"Verify account, this is your secret: {secret}",
+                      settings.EMAIL_FROM,
+                      [self.email],
+                      fall_silently=False,
+                      )
+        return
