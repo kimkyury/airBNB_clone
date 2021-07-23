@@ -1,16 +1,18 @@
-from django.contrib.auth.admin import UserAdmin
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
 from . import models
-# Register your models here.
+
 
 @admin.register(models.User)
-class CustomUserAdmin(admin.ModelAdmin):
+class CustomUserAdmin(UserAdmin):
+
+    """ Custom User Admin """
 
     fieldsets = UserAdmin.fieldsets + (
         (
             "Custom Profile",
             {
-                "fields" : (
+                "fields": (
                     "avatar",
                     "gender",
                     "bio",
@@ -36,4 +38,6 @@ class CustomUserAdmin(admin.ModelAdmin):
         "superhost",
         "is_staff",
         "is_superuser",
+        "email_verified",
+        "email_secret",
     )
