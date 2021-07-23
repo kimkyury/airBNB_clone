@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from . import forms
 from django.urls import reverse_lazy
 from . import forms, models
+import os
 
 
 class LoginView(FormView):
@@ -60,4 +61,16 @@ def complete_verification(request, key):
     except models.User.DoesNotExist:
         # to do: add error message
         pass
-    return redirect(reverse("core:home")) #여기로 redirect시킴
+    return redirect(reverse("core:home"))  # 여기로 redirect시킴
+
+
+def github_login(request):
+    client_id = os.environ.get("GH_ID")
+    redirect_uri = "http://127.0.0.1:8000/users/login/github/callback"
+    return redirect(
+        f"https://github.com/login/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&scope=read:user"
+    )
+
+
+def github_callback(request):
+    pass
