@@ -12,9 +12,8 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            "--number", default=2, type = int, help="How many users do you wnat to create"
+            "--number", default=2, type=int, help="How many users do you wnat to create"
         )
-    
 
     def handle(self, *args, **options):
         number = options.get("number")
@@ -42,27 +41,26 @@ class Command(BaseCommand):
         rules = room_models.HouseRule.objects.all()
         for pk in created_clean:
             room = room_models.Room.objects.get(pk=pk)
-            for i in range(3, random.randint(10, 30)): # 파일 범위주기
+            for i in range(3, random.randint(10, 17)):  # 파일 범위주기
                 room_models.Photo.objects.create(
                     caption=seeder.faker.sentence(),
                     room=room,
-                    file=f"room_photos/{random.randint(1, 17)}.webp", #파일 주소추가
+                    # 파일 주소추가
+                    file=f"room_photos/{random.randint(1, 17)}.webp",
                 )
             for a in amenities:
                 magic_number = random.randint(0, 15)
-                if magic_number%2 == 0:
+                if magic_number % 2 == 0:
                     room.amenities.add(a)
 
             for f in facilities:
-                magic_number = random.randint(0,15 )
-                if magic_number%2 == 0:
+                magic_number = random.randint(0, 15)
+                if magic_number % 2 == 0:
                     room.facilities.add(f)
 
-            
             for r in rules:
-                magic_number = random.randint(0,15 )
-                if magic_number%2 == 0:
+                magic_number = random.randint(0, 15)
+                if magic_number % 2 == 0:
                     room.house_rules.add(r)
 
         self.stdout.write(self.style.SUCCESS(f"{number} rooms created!"))
-        
