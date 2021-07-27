@@ -5,11 +5,11 @@ from django.core.paginator import Paginator
 
 
 class HomeView(ListView):
-    
+
     """ HomeView Definition """
 
     model = models.Room
-    paginate_by = 10
+    paginate_by = 12
     paginate_orphans = 5
     ordering = "created"
     context_object_name = "rooms"
@@ -20,7 +20,6 @@ class RoomDetail(DetailView):
     """ RoomDetail Definition """
 
     model = models.Room
-
 
 
 class SearchView(View):
@@ -87,17 +86,19 @@ class SearchView(View):
                 for facility in facilities:
                     filter_args["facilities"] = facility
 
-                qs = models.Room.objects.filter(**filter_args).order_by(-created)
+                qs = models.Room.objects.filter(
+                    **filter_args).order_by(-created)
 
                 paginator = Paginator(qs, 10, orphans=5)
                 page = request.GET.get("page", 1)
                 rooms = paginator.get_page(page)
 
                 return render(
-                    request, "rooms/search.html", {"form": form, "rooms":rooms}
-                    )
+                    request, "rooms/search.html", {
+                        "form": form, "rooms": rooms}
+                )
 
-        else: # 데이터 확인 과정 없이 일어나야하는 작업
+        else:  # 데이터 확인 과정 없이 일어나야하는 작업
             form = forms.SearchForm()
 
         return render(request, "rooms/search.html", {"form": form})
